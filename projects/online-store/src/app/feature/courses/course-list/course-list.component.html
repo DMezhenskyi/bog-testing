@@ -1,0 +1,39 @@
+<ng-container *ngIf="courses$ | async as courses">
+  <ng-container *ngIf="courses.status === 'success'">
+    <h1>All Courses</h1>
+    <div class="course-list">
+      <mat-card data-testingId="card" class="course" *ngFor="let course of courses.data">
+        <mat-card-header>
+          <mat-card-title>{{ course.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <a [href]="course.link">
+            <img class="card-img" [src]="course.image" [alt]="course.name" />
+          </a>
+        </mat-card-content>
+        <mat-card-actions>
+          <a
+            class="details-link"
+            [routerLink]="['course', course.id]"
+            data-testingId="details-link"
+            mat-stroked-button
+            color="primary"
+          >
+            Details
+          </a>
+          <button data-testingId="add-to-cart" mat-flat-button color="primary" (click)="addToCard(course)">
+            Add to Cart
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="courses.status === 'loading'">
+    <p data-testingId="loading-view">Loading courses...</p>
+  </ng-container>
+  <ng-container *ngIf="courses.status === 'error'">
+    <div data-testingId="error-view">
+      <p>Could not load courses...</p>
+    </div>
+  </ng-container>
+</ng-container>

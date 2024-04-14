@@ -1,0 +1,27 @@
+<form class="user-info" [formGroup]="form">
+  <mat-form-field>
+    <input
+      formControlName="displayName"
+      matInput
+      placeholder="Your Name"
+      formControlName="displayName"
+    />
+    <mat-error *ngIf="form.get('displayName')?.hasError('required')">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      formControlName="email"
+      matInput
+      placeholder="Your Email"
+      formControlName="email"
+    />
+    <mat-error *ngIf="form.get('email')?.hasError('required')">
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="form.get('email')?.hasError('email')">
+      Email is not valid
+    </mat-error>
+  </mat-form-field>
+</form>

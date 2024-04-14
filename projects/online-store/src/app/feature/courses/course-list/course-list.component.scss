@@ -1,0 +1,26 @@
+:host {
+  padding: 15px;
+  box-sizing: border-box;
+}
+.course-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.course {
+  margin: 15px;
+  .card-img {
+    max-width: 290px;
+  }
+  .more-about {
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  button {
+    width: 100%;
+  }
+}
+.details-link {
+  width: 50%;
+  margin-right: 10px;
+  text-decoration: none;
+}

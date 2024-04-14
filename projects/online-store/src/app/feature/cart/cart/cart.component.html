@@ -1,0 +1,39 @@
+<ng-container *ngIf="cart.itemsCount$ | async; else empty">
+  <a
+    class="back"
+    dfButton
+    appearance="stroked"
+    [routerLink]="['']"
+    routerLinkActive="router-link-active"
+    >< Back to all courses</a
+  >
+  <hr />
+  <h2>Customer Info</h2>
+  <app-user-info />
+  <hr />
+  <h2>Items</h2>
+  <ul class="items">
+    <li class="item" *ngFor="let item of cart.items$ | async">
+      <h5 class="item-name">{{ item.item.name }}</h5>
+      <div>Quantity: {{ item.quantity }}</div>
+      <div>
+        <button dfButton (click)="amountIncrement(item)">+</button>
+        <button dfButton appearance="stroked" (click)="amountDecrement(item)">
+          -
+        </button>
+      </div>
+    </li>
+  </ul>
+  <h2>Price Breakdown</h2>
+  <app-price-breakdown />
+  <button (click)="checkout()" dfButton [disabled]="!userInfo?.form?.valid">
+    Check Out
+  </button>
+</ng-container>
+
+<ng-template #empty>
+  <div class="empty-cart">
+    <p>Your Cart is empty</p>
+    <a routerLink="/" dfButton appearance="stroked">Go Back</a>
+  </div>
+</ng-template>

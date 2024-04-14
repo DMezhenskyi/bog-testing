@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<main class="content mat-elevation-z2">
+  <router-outlet></router-outlet>
+</main>
+
+<a
+  [routerLink]="['/cart']"
+  routerLinkActive="hide-button"
+  mat-fab
+  [matBadge]="(cart.itemsCount$ | async) || null"
+  class="cart"
+>
+  <mat-icon fontIcon="shopping_cart"></mat-icon>
+</a>

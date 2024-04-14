@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.items {
+  box-sizing: border-box;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  .item {
+    margin-bottom: 10px;
+    font-size: 15px !important;
+    padding: 5px 10px;
+    border: solid #ccc 1px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      margin: 0 5px;
+    }
+  }
+}
+.item-name {
+  text-align: left;
+}
+
+[dfButton] {
+  max-width: 200px;
+}
+.empty-cart {
+  text-align: center;
+  max-width: 350px;
+  margin: 0 auto;
+}

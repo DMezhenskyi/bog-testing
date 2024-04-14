@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  max-width: 430px;
+  border-radius: 10px;
+  box-shadow: #3a435082 0px 3px 4px;
+}
+.preview {
+  max-width: 430px;
+  border-radius: 5px;
+  &-img {
+    width: 100%;
+    border-radius: 5px;
+  }
+}
+.tags {
+  display: flex;
+  padding: 5px 0;
+
+  df-chip {
+    margin: 0 1px;
+  }
+}
+.footer {
+  margin-top: 7px;
+  display: flex;
+  align-items: center;
+}
+button {
+  width: 100%;
+}
+.price {
+  min-width: 130px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+}

@@ -1,0 +1,21 @@
+.content {
+  min-height: calc(100vh - 64px - (20px * 2));
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+.cart {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+}
+.hide-button {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}

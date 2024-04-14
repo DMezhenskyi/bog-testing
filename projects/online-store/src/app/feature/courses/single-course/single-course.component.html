@@ -1,0 +1,44 @@
+<a
+  class="landing-link"
+  mat-button
+  [routerLink]="['']"
+  routerLinkActive="router-link-active"
+  >< Back to all courses</a
+>
+<hr />
+<ng-container *ngIf="course$ | async as course">
+  <ng-container *ngIf="course.status === 'loading'">
+    <p>Loading course...</p>
+  </ng-container>
+  <ng-container *ngIf="course.status === 'success'">
+    <h1>{{ course.data.name }}</h1>
+    <p>{{ course.data.description }}</p>
+    <img
+      class="course-image"
+      [src]="course.data.image"
+      [alt]="course.data.name"
+    />
+    <hr />
+    <h2>Course Price: {{ course.data.price | currency }}</h2>
+    <hr />
+    <button mat-flat-button color="primary" (click)="addToCart(course.data)">
+      Add to Cart
+    </button>
+    <a
+      class="landing-link"
+      target="_blank"
+      mat-stroked-button
+      [href]="course.data.link"
+      >Course Landing</a
+    >
+  </ng-container>
+  <ng-container *ngIf="course.status === 'error'">
+    <p>Failed to load course...</p>
+    <a
+      class="landing-link"
+      [routerLink]="['']"
+      routerLinkActive="router-link-active"
+      >To the Main Page</a
+    >
+  </ng-container>
+</ng-container>

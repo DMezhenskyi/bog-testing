@@ -1,0 +1,28 @@
+<main class="content">
+  <h1>Component Demos</h1>
+  <nav>
+    <a [routerLink]="['/button']" routerLinkActive="router-link-active"
+      >Button</a
+    >
+    <a [routerLink]="['/chip']" routerLinkActive="router-link-active">Chip</a>
+    <a [routerLink]="['/item-card']" routerLinkActive="router-link-active"
+      >Card</a
+    >
+    <a
+      [routerLink]="['/interaction-switcher']"
+      routerLinkActive="router-link-active"
+      >Interaction Switcher</a
+    >
+    <a [routerLink]="['/product-linker']" routerLinkActive="router-link-active"
+      >Product Linker</a
+    >
+    <a [routerLink]="['/clipboard']" routerLinkActive="router-link-active"
+      >Clipboard</a
+    >
+    <a [routerLink]="['/hide-after']" routerLinkActive="router-link-active"
+      >HideAfter Directive</a
+    >
+  </nav>
+  <div class="dynamic-content"></div>
+  <router-outlet></router-outlet>
+</main>

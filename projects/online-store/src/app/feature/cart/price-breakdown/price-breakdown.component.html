@@ -1,0 +1,33 @@
+<section class="price-container">
+  <ul class="price-breakdown">
+    <li>
+      Net Price: <b>{{ price.netTotal$ | async | currency }}</b>
+    </li>
+    <li>
+      Applied VAT: <b>{{ price.appliedVAT$ | async | currency }}</b>
+    </li>
+    <li [ngClass]="{ 'invalid-price': discount.discount$ | async }">
+      Total: <b>{{ price.grossTotal$ | async | currency }}</b>
+    </li>
+  </ul>
+  <div>
+    <h2 class="final-price">
+      Final Price: {{ price.final$ | async | currency }}
+    </h2>
+    <div class="discount" *ngIf="discount.discount$ | async as disc">
+      <div class="discount-row">
+        Applied Coupon: <span class="discount-name">{{ disc.name }}</span>
+      </div>
+      <div class="discount-row">
+        Discount:
+        <span class="discount-amount">- {{ disc.amount | currency }}</span>
+      </div>
+      <div class="discount-row remaining-time">
+        Remaining time:
+        <span class="discount-remaining">{{
+          discount.remaining$ | async | date : "mm:ss"
+        }}</span>
+      </div>
+    </div>
+  </div>
+</section>

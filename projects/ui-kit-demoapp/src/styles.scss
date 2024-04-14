@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+body,
+a {
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+}
+.state {
+  display: inline-block;
+  margin-right: 15px;
+  p {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+}
+h5 {
+  margin-bottom: 5px;
+}
+.showcase {
+  padding: 10px 15px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  &:nth-child(even) {
+    background-color: #fafafa;
+  }
+}
+.element-description {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

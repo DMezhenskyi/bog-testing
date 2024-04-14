@@ -1,0 +1,42 @@
+.price-breakdown {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  width: 100%;
+
+  li {
+    padding: 10px 15px;
+    border-bottom: 1px dotted #ccc;
+  }
+}
+.price-container {
+  display: flex;
+  justify-content: space-between;
+}
+.final-price {
+  max-width: 450px;
+  width: 100%;
+  display: block;
+}
+.discount {
+  font-size: 13px;
+}
+.discount-row {
+  margin-bottom: 7px;
+}
+.discount-name,
+.discount-amount,
+.discount-remaining {
+  font-weight: bold;
+}
+.remaining-time {
+  background: #abf4ab;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.invalid-price {
+  text-decoration: line-through;
+}

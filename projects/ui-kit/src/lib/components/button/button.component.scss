@@ -1,0 +1,57 @@
+:host {
+  display: inline-flex;
+  padding: 7px 13px;
+  align-items: center;
+  box-sizing: border-box;
+  border: solid 2px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-radius 0.2s ease-in-out;
+  text-decoration: none;
+  justify-content: center;
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+  &.solid-button {
+    background-color: var(--df-color-primary, #1098c8);
+    border-color: var(--df-color-primary, #1098c8);
+    color: white;
+    .button-loader {
+      border-color: var(--df-color-surface, white);
+      border-bottom-color: transparent;
+    }
+  }
+  &.stroked-button {
+    background-color: var(--df-color-surface, white);
+    border-color: var(--df-color-primary, #1098c8);
+    color: var(--df-color-primary, #1098c8);
+    .button-loader {
+      border-color: var(--df-color-primary, #1098c8);
+      border-bottom-color: transparent;
+    }
+  }
+  &:disabled,
+  &.disabled {
+    opacity: 0.6;
+  }
+}
+.button-loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--df-color-primary, #1098c8);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-left: 10px;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
