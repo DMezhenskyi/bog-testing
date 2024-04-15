@@ -59,7 +59,7 @@ Additionally, it makes your tests much more stable because now, in tests, you do
 
 Try to refactor the `TaxCalculatorService` with the modern `inject()` function instead of `@Inject(...)` decorator. It should break your test, and it is expected. This is because the `inject()` function relies on Angular Dependency Injection and has to be executed in a special _constructor context_, which is not currently the case. The easiest way to resolve objects for tests from DI is using the `TestBed.inject(YourService)` instead of manual class instantiation like `new TaxCalculatorService(...)`.
 
-### Task 5.1
+### Task 4.1
 
 If you successfully resolved service from the Angular DI, you broke the countries mocking which we did in the `Task 2`. This is because we now completely rely on Angular DI, and DI picked up the real injection tokens from the actual countries instead of mocked ones.
 

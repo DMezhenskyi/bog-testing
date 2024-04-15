@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, inject } from '@angular/core';
 
 export interface Country {
   [key: string]: {
@@ -26,7 +26,7 @@ export const COUNTRIES = new InjectionToken<Country>('countries', {
 export class TaxCalculatorService {
 
 
-  constructor(@Inject(COUNTRIES) private countries: Country) {}
+  countries = inject(COUNTRIES);
 
   calculateVAT(price: number, countryKey: string, isB2B = false) {
     if (!this.countries[countryKey]) {

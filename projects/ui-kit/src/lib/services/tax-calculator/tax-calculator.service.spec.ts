@@ -1,12 +1,21 @@
-import { TaxCalculatorService } from './tax-calculator.service';
+import { COUNTRIES, TaxCalculatorService } from './tax-calculator.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('TaxCalculatorService', () => {
   let service: TaxCalculatorService;
   beforeEach(() => {
     // SETUP
-    service = new TaxCalculatorService({
-      ge: { name: 'Georgia', vat: 18 },
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: COUNTRIES,
+          useValue: {
+            ge: { name: 'Georgia', vat: 18 },
+          },
+        },
+      ],
     });
+    service = TestBed.inject(TaxCalculatorService);
   });
   it(`should properly calculate VAT for a given country`, () => {
     // ACTION
