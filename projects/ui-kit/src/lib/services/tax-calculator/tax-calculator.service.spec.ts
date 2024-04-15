@@ -4,7 +4,9 @@ describe('TaxCalculatorService', () => {
   let service: TaxCalculatorService;
   beforeEach(() => {
     // SETUP
-    service = new TaxCalculatorService();
+    service = new TaxCalculatorService({
+      ge: { name: 'Georgia', vat: 18 },
+    });
   });
   it(`should properly calculate VAT for a given country`, () => {
     // ACTION
