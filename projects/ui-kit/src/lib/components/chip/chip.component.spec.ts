@@ -14,7 +14,7 @@ describe('ChipComponent', () => {
     fixture.detectChanges();
 
     // ASSERTION
-    const chipText = debugElement.query(By.css('.chip-text'));
+    const chipText = debugElement.query(By.css('[data-testId="text"]'));
     expect(chipText.nativeElement.textContent).toContain(testString);
   });
   it('should render render the remove icon when removable is true', () => {
@@ -23,7 +23,7 @@ describe('ChipComponent', () => {
     componentRef.setInput('removable', true);
     fixture.detectChanges();
 
-    const removeIcon = debugElement.query(By.css('.chip-remove-icon'));
+    const removeIcon = debugElement.query(By.css('[data-testId="remove"]'));
     expect(removeIcon).toBeTruthy();
   });
   it('should be focusable', () => {

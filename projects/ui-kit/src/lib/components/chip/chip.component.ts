@@ -14,10 +14,10 @@ import { toBooleanProperty } from '../../utils/type-coercion';
   standalone: true,
   imports: [NgIf],
   template: `
-    <span class="chip-text">
+    <span class="chip-text" data-testId="text">
       {{ text }}
     </span>
-    <i (click)="onClick()" *ngIf="removable" class="chip-remove-icon"></i>
+    <i (click)="onClick()" data-testId="remove" *ngIf="removable" class="chip-remove-icon"></i>
   `,
   styleUrls: ['./chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
