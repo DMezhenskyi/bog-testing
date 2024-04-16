@@ -1,6 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { ChipComponent } from "./chip.component";
 import { By } from "@angular/platform-browser";
+import { firstValueFrom } from "rxjs";
 
 describe('ChipComponent', () => {
 
@@ -31,9 +32,34 @@ describe('ChipComponent', () => {
     expect(debugElement.nativeElement.tabIndex).toBe(0);
   });
   
-  it.todo(
-    'when removed is clicked, should emit the removed event with the chip instance'
-  );
+  // it('when removed is clicked, should emit the removed event with the chip instance', () => {
+  //   let expectedValue: ChipComponent<any> | undefined;
+  //   const { fixture, debugElement, componentRef } = setup();
+  //   fixture.componentInstance.removed.subscribe(
+  //     (chip) => (expectedValue = chip)
+  //   );
+
+  //   componentRef.setInput('removable', true);
+  //   fixture.detectChanges();
+
+  //   const removeIcon = debugElement.query(By.css('.chip-remove-icon'));
+  //   removeIcon.nativeElement.click();
+
+  //   expect(expectedValue).toBe(fixture.componentInstance);
+  // });
+  
+  it('when removed is clicked, should emit the removed event with the chip instance', async () => {
+    const { fixture, debugElement, componentRef } = setup();
+    const outputValue = firstValueFrom(fixture.componentInstance.removed);
+
+    componentRef.setInput('removable', true);
+    fixture.detectChanges();
+
+    const removeIcon = debugElement.query(By.css('.chip-remove-icon'));
+    removeIcon.nativeElement.click();
+
+    expect(await outputValue).toBe(fixture.componentInstance);
+  });
 });
 
 function setup() {
