@@ -72,6 +72,16 @@ describe('SigninComponent', () => {
     requiredMsgEl = debugEl.query(By.css('[data-testId="email-invalid"'));
     expect(requiredMsgEl).toBeNull()
   })
+  it('should disable button if the form is invalid', async () => {
+    const {getFormElements, fixture, simulateUserValueInput, debugEl} = setup();
+    await fixture.whenStable();
+    
+    const {emailField} = getFormElements();
+    simulateUserValueInput(emailField, '');
+    
+    const {button} = getFormElements();
+    expect(button.nativeElement.disabled).toBe(true)
+  })
 })
 
 function setup() {
