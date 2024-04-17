@@ -19,6 +19,13 @@ describe('SigninComponent', () => {
     expect(emailField.nativeElement.type).toBe('email');
     expect(passworField.nativeElement.type).toBe('password');
   })
+  it('form controls should have placeholders', () => {
+    const {getFormElements} = setup();
+    const {emailField, passworField} = getFormElements();
+    
+    expect(emailField.nativeElement.placeholder).toMatch(/email/i)
+    expect(passworField.nativeElement.placeholder).toMatch(/password/i)
+  })
 })
 
 function setup() {
