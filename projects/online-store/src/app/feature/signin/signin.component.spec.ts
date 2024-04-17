@@ -26,6 +26,13 @@ describe('SigninComponent', () => {
     expect(emailField.nativeElement.placeholder).toMatch(/email/i)
     expect(passworField.nativeElement.placeholder).toMatch(/password/i)
   })
+  it('should render a submit button', () => {
+    const {getFormElements} = setup();
+    const {button} = getFormElements();
+
+    expect(button).toBeTruthy();
+    expect(button.nativeElement.textContent).toMatch(/signin/i)
+  })
 })
 
 function setup() {
@@ -37,7 +44,8 @@ function setup() {
 
   const getFormElements = () => ({
     emailField: debugEl.query(By.css('[data-testId="email"]')),
-    passworField: debugEl.query(By.css('[data-testId="password"]'))
+    passworField: debugEl.query(By.css('[data-testId="password"]')),
+    button: debugEl.query(By.css('[data-testId="signin-button"]')),
   })
 
   return {
