@@ -1,6 +1,7 @@
 import { TestBed } from "@angular/core/testing"
 import SignInComponent from "./signin.component"
 import { By } from "@angular/platform-browser";
+import { DebugElement } from "@angular/core";
 
 describe('SigninComponent', () => {
   describe('Form Appearance', () => {
@@ -37,22 +38,20 @@ describe('SigninComponent', () => {
   })
   describe('Form Validation', () => {
     it('should show/hide error message if email is empty', async () => {
-      const {getFormElements, fixture, debugEl} = setup();
+      const {getFormElements, fixture, debugEl, simulateUserValueInput} = setup();
       await fixture.whenStable(); // await when all pending microtasks finished
 
       const {emailField} = getFormElements();
 
-      emailField.nativeElement.value = ''
-      emailField.nativeElement.dispatchEvent(new InputEvent('input'));
-      fixture.detectChanges();
+      simulateUserValueInput(emailField, '');
 
       let requiredMsgEl = debugEl.query(By.css('[data-testId="email-required"'));
+      
       expect(requiredMsgEl).toBeTruthy();
       expect(requiredMsgEl.nativeElement.textContent).toMatch(/required/i);
 
-      emailField.nativeElement.value = 'non empty'
-      emailField.nativeElement.dispatchEvent(new InputEvent('input'));
-      fixture.detectChanges();
+      simulateUserValueInput(emailField, 'non empty');
+
       // re-query the same element
       requiredMsgEl = debugEl.query(By.css('[data-testId="email-required"'));
       expect(requiredMsgEl).toBeNull()
@@ -73,10 +72,17 @@ function setup() {
     button: debugEl.query(By.css('[data-testId="signin-button"]')),
   })
 
+  const simulateUserValueInput = (field: DebugElement, value: string) => {
+    field.nativeElement.value = value;
+    field.nativeElement.dispatchEvent(new InputEvent('input'));
+    fixture.detectChanges();
+  }
+
   return {
     fixture,
     debugEl,
-    getFormElements
+    getFormElements,
+    simulateUserValueInput
   }
 
 }
