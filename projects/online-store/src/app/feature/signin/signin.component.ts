@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   template: `
     <input placeholder="Enter Email" type="email" data-testId="email">
     <input placeholder="Enter Your Password" type="password" data-testId="password">
+    <button data-testId="signin-button">SignIn</button>
   `,
   standalone: true,
   imports: [],
