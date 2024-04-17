@@ -35,6 +35,29 @@ describe('SigninComponent', () => {
       expect(button.nativeElement.textContent).toMatch(/signin/i)
     })
   })
+  describe('Form Validation', () => {
+    it('should show/hide error message if email is empty', async () => {
+      const {getFormElements, fixture, debugEl} = setup();
+      await fixture.whenStable(); // await when all pending microtasks finished
+
+      const {emailField} = getFormElements();
+
+      emailField.nativeElement.value = ''
+      emailField.nativeElement.dispatchEvent(new InputEvent('input'));
+      fixture.detectChanges();
+
+      let requiredMsgEl = debugEl.query(By.css('[data-testId="email-required"'));
+      expect(requiredMsgEl).toBeTruthy();
+      expect(requiredMsgEl.nativeElement.textContent).toMatch(/required/i);
+
+      emailField.nativeElement.value = 'non empty'
+      emailField.nativeElement.dispatchEvent(new InputEvent('input'));
+      fixture.detectChanges();
+      // re-query the same element
+      requiredMsgEl = debugEl.query(By.css('[data-testId="email-required"'));
+      expect(requiredMsgEl).toBeNull()
+    })
+  })
 })
 
 function setup() {
