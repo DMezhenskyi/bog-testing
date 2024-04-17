@@ -5,12 +5,21 @@ import { By } from "@angular/platform-browser";
 describe('SigninComponent', () => {
   it('should render email & password input fields', () => {
     const {debugEl} = setup();
-
+    
+    const emailField = debugEl.query(By.css('[data-testId="email"]'));
+    const passworField = debugEl.query(By.css('[data-testId="password"]'));
+    
+    expect(emailField).toBeTruthy();
+    expect(passworField).toBeTruthy();
+  })
+  it('should verify that email & password have proper attributes', () => {
+    const {debugEl} = setup();
+    
     const emailField = debugEl.query(By.css('[data-testId="email"]'));
     const passworField = debugEl.query(By.css('[data-testId="password"]'));
 
-    expect(emailField).toBeTruthy();
-    expect(passworField).toBeTruthy();
+    expect(emailField.nativeElement.type).toBe('email');
+    expect(passworField.nativeElement.type).toBe('password');
   })
 })
 
