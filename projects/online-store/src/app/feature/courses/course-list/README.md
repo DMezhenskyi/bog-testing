@@ -1,35 +1,48 @@
-You've got a smart `CourseListComponent`. 'Smart Component' means that the component "knows" how to get the data using services it depends on. Your goal is to test this component.
+You've got a complex component `CourseListComponent` that does the following things:
+1. Fetches the data (courses) using the service `CoursesService.getCourses()`:
+- if this method returns an object with status 'loading', the user should see the template for the loading;
+- if the getCourses method throws an error, the user should see the error template;
+- if the method returns an object with status "success" - the data from the server should be rendered.
+2. if a user clicks the "Add to Cart" button, this course should be added to the application cart.
 
-## Task 1 (together) - Create Testing plan
+You can see it in action if you open the Demo App in the browser `https://localhost:4200`.
 
-*ACTION ITEMS*
+In the `course-list.component.spec.ts` you will find the testing plan for those scenarious and your goal is to implement tests.
 
-- run command: `npm run build --project ui-kit`
-- run command: `npm run start --project online-store`
-- run command: `npm run test --project online-store` to run tests for that project
-- Open the Demo App in the browser `https://localhost:4200`
-- Please have a look at the component and pay attention to the behaviours it has. Based on this information, create a testing plan. The testing plan can be represented as simple comments or a list of `it.todo`.
+NOTE: please try to implement tests without midifying the `course-list.component.ts` itself.
 
-## Task 2 (together) - Configure the TestBed
-To configure the test bed, use the approach with `setup() {...}` function using your knowledge. The main challenge in this component are dependencies which we have to properly mock.
+*GUIDANCE FOR TEST SETUP:*
+1. The main challenge here is to mock the component dependencies (`CoursesService` & `CartService`) and instead of the real implementation, you should provide mocks. Those can be represented as simple JS objects which partially implement the interface of the original services but the real methods implementation should be replaced with Jest spies which can be created by using `jest.fn()` method. So, your mock could look like this:
 
+```typescript
+   const coursesServiceSpy: Partial<CoursesService> = {
+    getCourses: jest.fn(),
+  };
+```
+2. Using `TestBed.configureTestingModule({})` replace the real implementation of services with their mocks and add other dependency providers if needed.
 
-*ACTION ITEMS*
+*GUIDANCE FOR TEST IMPLEMENTATION:*
+- right after you call `setup()` function in unit test body, configure the spy to return a specific value that depends on your testing scenario. Spy must be cofigured before the spied method is called by component.
 
-- Inside the `setup` function, create an instance of the component you are going to test using `TestBed.createComponent(...)` and assign it to `fixture` constant;
-- Extract the debugEl from the created fixture.
-- return fixture and debugElement as properties of the setup object.
-- Provide missing providers for rounter: `TestBed.configureTestingModule({ providers: [provideRouter([])] })`;
-- Provide the Mocked versions of component dependencies used by `CourseListComponent`. Namely, those are: `CoursesService` & `CartService`. Use `jest.fn()` to implement methods for the mock. Use `configureTestingModule` to override the real service implementations with mocks.
-- inject back the mocked courses service `const coursesService = TestBed.inject(CoursesService);` and add it to the setup object like `{..., coursesService, ...}`
-- do the same for the `CartService`;
-- Since we mock the `CoursesService`, we won't be able to receive the real data from the server. That's why, we need to have some mocked data for our tests. That should be an array of type `Course[]` and contain a few "dummy" coureses.
-- define this dummy courses in the `setup` functon and add them to the setup object.
-- call the `setup` function somewhere in one of the tests.
+Example for the first test case:
 
-## Task 3 - Testing scenarious defined before.
+```typescript
+    jest.spyOn(coursesService, 'getCourses').mockReturnValue(
+      of<NetworkStatus>({
+        status: 'loading',
+      })
+```
 
-*HINTS & RECOMMENDATIONS:*
-- right after the `setup` function call in unit test body, configure the spy to return a specific value. It has to be done before the spied method is called by component you test.
 - Don't forget about calling `fixture.detectChanges()` because in tests change detections isn't triggered automatically.
-- To simulate the error for the RxJS observable, use ```throwError(...)``` operator. The value for that operator has to be `() => ({ status: 'error', error: 'WHATEVER TEXT YOU WANT' })`
+- To simulate the error in `CoursesService.getCourses`, use ```throwError(...)``` operator. 
+Example:
+
+```typescript
+    jest.spyOn(coursesService, 'getCourses').mockReturnValue(
+      throwError(() => ({
+        status: 'error',
+        error: 'Internal Server Error',
+      }))
+    );
+```
+- Test Matchers you would probably need: `toBe`, `toHaveBeenCalledWith`, `toContain`
