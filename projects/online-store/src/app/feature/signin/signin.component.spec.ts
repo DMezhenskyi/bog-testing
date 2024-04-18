@@ -56,31 +56,31 @@ describe('SigninComponent', () => {
       requiredMsgEl = debugEl.query(By.css('[data-testId="email-required"'));
       expect(requiredMsgEl).toBeNull()
     })
-  })
-  it('should show/hide error message if email is not valid', async () => {
-    const {getFormElements, fixture, simulateUserValueInput, debugEl} = setup();
-    await fixture.whenStable();
-    const {emailField} = getFormElements();
-
-    simulateUserValueInput(emailField, 'this is not an email');
-    
-    let requiredMsgEl = debugEl.query(By.css('[data-testId="email-invalid"'));
-    expect(requiredMsgEl).toBeTruthy();
-    expect(requiredMsgEl.nativeElement.textContent).toMatch(/invalid/i);
-
-    simulateUserValueInput(emailField, 'email@valid.com');
-    requiredMsgEl = debugEl.query(By.css('[data-testId="email-invalid"'));
-    expect(requiredMsgEl).toBeNull()
-  })
-  it('should disable button if the form is invalid', async () => {
-    const {getFormElements, fixture, simulateUserValueInput, debugEl} = setup();
-    await fixture.whenStable();
-    
-    const {emailField} = getFormElements();
-    simulateUserValueInput(emailField, '');
-    
-    const {button} = getFormElements();
-    expect(button.nativeElement.disabled).toBe(true)
+    it('should show/hide error message if email is not valid', async () => {
+      const {getFormElements, fixture, simulateUserValueInput, debugEl} = setup();
+      await fixture.whenStable();
+      const {emailField} = getFormElements();
+  
+      simulateUserValueInput(emailField, 'this is not an email');
+      
+      let requiredMsgEl = debugEl.query(By.css('[data-testId="email-invalid"'));
+      expect(requiredMsgEl).toBeTruthy();
+      expect(requiredMsgEl.nativeElement.textContent).toMatch(/invalid/i);
+  
+      simulateUserValueInput(emailField, 'email@valid.com');
+      requiredMsgEl = debugEl.query(By.css('[data-testId="email-invalid"'));
+      expect(requiredMsgEl).toBeNull()
+    })
+    it('should disable button if the form is invalid', async () => {
+      const {getFormElements, fixture, simulateUserValueInput, debugEl} = setup();
+      await fixture.whenStable();
+      
+      const {emailField} = getFormElements();
+      simulateUserValueInput(emailField, '');
+      
+      const {button} = getFormElements();
+      expect(button.nativeElement.disabled).toBe(true)
+    })
   })
 })
 
