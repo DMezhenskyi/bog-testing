@@ -2,6 +2,7 @@ import { TestBed } from "@angular/core/testing"
 import SignInComponent from "./signin.component"
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
+import { SignInService } from "./signin.service";
 
 describe('SigninComponent', () => {
   describe('Form Appearance', () => {
@@ -82,11 +83,52 @@ describe('SigninComponent', () => {
       expect(button.nativeElement.disabled).toBe(true)
     })
   })
+  describe('Form submittion', () => {
+    it('should submitt form and call proper method', () =>{
+      const {signInService, getFormElements, simulateUserValueInput} = setup();
+      const {emailField, passworField, button} = getFormElements()
+    
+      // setup values for the form controls
+      simulateUserValueInput(emailField, 'test@test.com');
+      simulateUserValueInput(passworField, '12345');
+
+      // simulate user click on the form button to simulate
+      // form submition. Alternatively, it could be also done by triggering
+      // the (submit) event on the <form> tag.
+      button.nativeElement.click();
+    
+      // Expecting the proper service & method has been called
+      // and if values from the form were provided.
+      expect(signInService.signIn).toHaveBeenCalledWith({
+        email: 'test@test.com',
+        password: '12345'
+      })
+    })
+  })
 })
 
 function setup() {
+  // Mock (faked) signin service for the test
+  const signInMock = {
+    signIn: jest.fn()
+  }
+
+  // Provide faked signin service to avoid real implementation 
+  // in our tests
+  TestBed.configureTestingModule({
+    providers: [
+      {
+        provide: SignInService,
+        useValue: signInMock
+      }
+    ]
+  })
   const fixture = TestBed.createComponent(SignInComponent);
   const debugEl = fixture.debugElement;
+  // getting reference to the faked SignInService
+  // because in test cases, we will need to spy on 
+  // how the service methods are called
+  const signInService = TestBed.inject(SignInService)
 
   // initial change detection
   fixture.detectChanges();
@@ -107,7 +149,8 @@ function setup() {
     fixture,
     debugEl,
     getFormElements,
-    simulateUserValueInput
+    simulateUserValueInput,
+    signInService
   }
 
 }
